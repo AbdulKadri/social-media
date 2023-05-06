@@ -3,4 +3,4 @@
     "baseUrl": "src"
   },
   "include": ["src"]
-} // we do this to avoid having to use relative paths in our imports
+}
