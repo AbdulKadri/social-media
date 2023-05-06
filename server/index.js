@@ -11,6 +11,12 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/authRoutes.js";
 import { register } from "./controllers/authController.js"
 import { verifyToken } from "./middleware/authMiddleware.js";
+import userRoutes from "./routes/userRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
+import { createPost } from "./controllers/postController.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import { users, posts } from "./data/index.js";
 
 // CONFIGURATIONS
 const __filename = fileURLToPath(import.meta.url); // To get the current file name
@@ -46,9 +52,12 @@ const upload = multer({ storage }); // To store files
 
 // ROUTES WITH FILES
 app.post("/auth/register", upload.single("picture"), register); // To register a user
+app.post("/posts", verifyToken, upload.single("picture"), createPost); // To create a post
 
 // ROUTES
 app.use("/auth", authRoutes); // To use the auth routes
+app.use("/users", userRoutes); // To use the user routes
+app.use("/posts", postRoutes); // To use the post routes
 
 // DATABASE CONNECTION
 const PORT = process.env.PORT || 6001; // To get the port number
@@ -59,6 +68,10 @@ mongoose.connect(process.env.MONGO_URL, {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });
+
+    // Add fake users and posts to the database One time when needed
+    // User.insertMany(users)
+    // Post.insertMany(posts)
 }).catch((error) => {
     console.log(`${error} did not connect`);
 }); // To connect to the database
