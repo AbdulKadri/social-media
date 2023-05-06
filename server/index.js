@@ -8,9 +8,11 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+import authRoutes from "./routes/authRoutes.js";
+import { register } from "./controllers/authController.js"
+import { verifyToken } from "./middleware/authMiddleware.js";
 
 // CONFIGURATIONS
-
 const __filename = fileURLToPath(import.meta.url); // To get the current file name
 const __dirname = path.dirname(__filename); // To get the current directory name
 
@@ -18,7 +20,7 @@ dotenv.config(); // To use .env file
 const app = express(); // Initializing express
 
 // MIDDLEWARES
-app.use(express.json); // To parse the request body
+app.use(express.json()); // To parse the request body
 
 app.use(helmet()); // To secure the app
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); // To secure the app
@@ -41,6 +43,12 @@ const storage = multer.diskStorage({
     }
 }); // To store files
 const upload = multer({ storage }); // To store files
+
+// ROUTES WITH FILES
+app.post("/auth/register", upload.single("picture"), register); // To register a user
+
+// ROUTES
+app.use("/auth", authRoutes); // To use the auth routes
 
 // DATABASE CONNECTION
 const PORT = process.env.PORT || 6001; // To get the port number
