@@ -11,6 +11,7 @@ import { themeSettings } from 'theme'; // themeSettings is used to set theme set
 const App = () => {
   const mode = useSelector((state) => state.mode); // get mode from redux store
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]); // create theme based on mode
+  const isAuth = Boolean(useSelector((state) => state.token)); // check if user is authenticated or not (if token exists)
 
   return (
     <div className="app">
@@ -18,9 +19,13 @@ const App = () => {
         <ThemeProvider theme={theme}> {/* Set theme */}
           <CssBaseline /> {/* Set default CSS */}
           <Routes>
-            <Route path="/" element={<LoginPage />} /> {/* This is the default route */}
-            <Route path="/home" element={<HomePage />} /> {/* Set homepage route*/}
-            <Route path="/profile/:userId" element={<ProfilePage />} /> {/* Set profile page route */}
+            <Route path="/" element={<LoginPage />} /> {/* This is the default route which is the login page */}
+            <Route
+              path="/home"
+              element={isAuth ? <HomePage /> : <Navigate to="/" />} /> {/* check if authenticated if so direct to homepage if not direct to login page */}
+            <Route
+              path="/profile/:userId"
+              element={isAuth ? <ProfilePage /> : <Navigate to="/" />} /> {/* check if authenticated if so direct to profile page if not direct to login page */}
           </Routes>
         </ThemeProvider>
       </Router>
