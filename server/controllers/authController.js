@@ -10,7 +10,6 @@ export const register = async (req, res) => {
             lastName,
             email,
             password,
-            picturePath,
             friends,
             location,
             occupation
@@ -18,6 +17,8 @@ export const register = async (req, res) => {
 
         const salt = await bcrypt.genSalt(10); // To generate salt
         const hashedPassword = await bcrypt.hash(password, salt); // To hash the password
+
+        const picturePath = req.file ? `${req.file.filename}` : ""; // To get the picture path
 
         const newUser = await User.create({
             firstName,
