@@ -60,7 +60,7 @@ const Navbar = () => {
                         },
                     }}
                 >
-                    SportNexus
+                    SportsNexus
                 </Typography>
 
                 {/* SEARCH BAR */}
