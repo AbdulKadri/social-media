@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
 import Form from "../components/forms/SignupLoginForms"
 
-const LoginPage = () => {
+const SignupLoginPage = () => {
     const theme = useTheme(); // use the themes we have defined in theme.js
     const isNonMobileScreens = useMediaQuery("min-width: 1000px"); // check if the screen is mobile or not
 
@@ -18,7 +18,7 @@ const LoginPage = () => {
                     fontSize="32px"
                     color="primary"
                 >
-                    SportNexus
+                    SportsNexus
                 </Typography>
             </Box>
 
@@ -34,7 +34,7 @@ const LoginPage = () => {
                     variant="h5"
                     sx={{ mb: "1.5rem" }}
                 >
-                    Welcome to SportNexus, The Social Network for Sports Fans!
+                    Welcome to SportsNexus, The Social Network for Sports Fans!
                 </Typography>
 
                 {/* REGISTER/LOGIN FORM */}
@@ -44,4 +44,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default SignupLoginPage

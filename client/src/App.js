@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from 'pages/HomePage';
-import LoginPage from 'pages/LoginPage';
+import SignupLoginPage from 'pages/SignupLoginPage';
 import ProfilePage from 'pages/ProfilePage';
 import { useMemo } from 'react'; // useMemo is used to prevent unnecessary re-renders
 import { useSelector } from 'react-redux'; // useSelector is used to get data from redux store
@@ -19,7 +19,7 @@ const App = () => {
         <ThemeProvider theme={theme}> {/* Set theme */}
           <CssBaseline /> {/* Set default CSS */}
           <Routes>
-            <Route path="/" element={<LoginPage />} /> {/* This is the default route which is the login page */}
+            <Route path="/" element={<SignupLoginPage />} /> {/* This is the default route which is the login page */}
             <Route
               path="/home"
               element={isAuth ? <HomePage /> : <Navigate to="/" />} /> {/* check if authenticated if so direct to homepage if not direct to login page */}
