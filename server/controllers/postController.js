@@ -30,7 +30,7 @@ export const createPost = async (req, res) => {
 // READ
 export const getFeedPosts = async (req, res) => {
     try {
-        const posts = await Post.find({}); // To find all posts
+        const posts = await Post.find({}).sort({ createdAt: -1 }); // To find all posts and sort by creation date in descending order
         res.status(200).json(posts); // To send all posts
     } catch (err) {
         res.status(404).json({ message: err.message }); // To send the error
@@ -60,7 +60,7 @@ export const likePost = async (req, res) => {
             post.likes.set(userId, true); // To add the like
         } // To add/remove a like
 
-        const updatedPost = await findByIdAndUpdate(
+        const updatedPost = await Post.findByIdAndUpdate(
             id,
             { likes: post.likes },
             { new: true }
