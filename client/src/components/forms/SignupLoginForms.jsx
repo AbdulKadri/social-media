@@ -64,7 +64,7 @@ const Form = () => {
         } // append all values to form data
         formData.append("picture", values.picture.name); // append picture to form data
 
-        const saveUserResponse = await fetch("http://localhost:3001/auth/register", {
+        const saveUserResponse = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
             method: "POST",
             body: formData,
         }); // send form data to backend
@@ -85,7 +85,7 @@ const Form = () => {
     }; // register user
 
     const login = async (values, onSubmitProps) => {
-        const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+        const loggedInResponse = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values),
