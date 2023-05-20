@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux'; // useSelector is used to get data fr
 import { CssBaseline, ThemeProvider } from '@mui/material'; // CssBaseline is used to set default CSS
 import { createTheme } from '@mui/material/styles'; // createTheme is used to create a theme
 import { themeSettings } from 'styles/theme'; // themeSettings is used to set theme settings
+import { ToastContainer } from 'react-toastify'; // ToastContainer is used to display toast messages
+import 'react-toastify/dist/ReactToastify.css'; // import CSS for toast messages
 
 const App = () => {
   const mode = useSelector((state) => state.mode); // get mode from redux store
@@ -18,6 +20,17 @@ const App = () => {
       <Router>
         <ThemeProvider theme={theme}> {/* Set theme */}
           <CssBaseline /> {/* Set default CSS */}
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          /> {/* Toast messages */}
           <Routes>
             <Route path="/" element={<SignupLoginPage />} /> {/* This is the default route which is the login page */}
             <Route
